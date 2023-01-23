@@ -60,6 +60,7 @@ def run_cmi_process(settings: dict, data: np.ndarray, max_workers: int = 100):
                 'data': data,
                 'results': []}
 
+    n_groups = get_n_groups(data)
     data = Data(data, dim_order='sp')
 
     with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
@@ -67,7 +68,7 @@ def run_cmi_process(settings: dict, data: np.ndarray, max_workers: int = 100):
                                    settings=settings,
                                    data=data,
                                    target_id=age_group):
-                       age_group for age_group in range(get_n_groups(data))}
+                       age_group for age_group in range(n_groups)}
 
         for future in concurrent.futures.as_completed(futures):
             age_group = futures[future]
