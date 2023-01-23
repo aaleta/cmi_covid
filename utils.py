@@ -55,5 +55,5 @@ def get_n_groups(data: np.ndarray) -> int:
         Returns:
             n: number of groups
     """
-    return np.shape(data)[0]
+    return np.shape(data)[1]
 

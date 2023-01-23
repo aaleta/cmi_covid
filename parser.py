@@ -30,14 +30,14 @@ def parse_args(args=sys.argv[1:]):
     parser.add_argument(
         "-MS",
         "--maxlag-source",
-        default=20,
+        default=10,
         type=int,
         help="maximum lag for the source"
     )
     parser.add_argument(
         "-MT",
         "--maxlag_target",
-        default=20,
+        default=10,
         type=int,
         help="maximum lag for the target"
     )
