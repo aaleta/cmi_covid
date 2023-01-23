@@ -1,0 +1,811 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The Results Class &#8212; IDTxl 1.4 documentation</title>
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Information theoretic estimators" href="idtxl_estimators.html" />
+    <link rel="prev" title="Network comparison" href="idtxl_network_comparison.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idtxl_estimators.html" title="Information theoretic estimators"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="idtxl_network_comparison.html" title="Network comparison"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">IDTxl 1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">The Results Class</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="the-results-class">
+<h1>The Results Class<a class="headerlink" href="#the-results-class" title="Permalink to this headline">¶</a></h1>
+<section id="results-network-inference">
+<h2>Results network inference<a class="headerlink" href="#results-network-inference" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">idtxl.results.</code><code class="sig-name descname">ResultsNetworkInference</code><a class="reference internal" href="_modules/idtxl/results.html#ResultsNetworkInference"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Store results of network inference.</p>
+<p>Provide a container for results of network inference algorithms, e.g.,
+MultivariateTE or Bivariate TE.</p>
+<p>Note that for convenience all dictionaries in this class can additionally
+be accessed using dot-notation:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_network</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">cmi_estimator</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_network</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;cmi_estimator&#39;</span><span class="p">]</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl>
+<dt>Attributes:</dt><dd><dl>
+<dt>settings<span class="classifier">dict</span></dt><dd><p>settings used for estimation of information theoretic measures and
+statistical testing</p>
+</dd>
+<dt>data_properties<span class="classifier">dict</span></dt><dd><p>data properties, contains</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>n_nodes : int - total number of nodes in the network</p></li>
+<li><p>n_realisations : int - number of samples available for
+analysis given the settings (e.g., a high maximum lag used in
+network inference, results in fewer data points available for
+estimation)</p></li>
+<li><p>normalised : bool - indicates if data were z-standardised
+before estimation</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>targets_analysed<span class="classifier">list</span></dt><dd><p>list of analysed targets</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_adjacency_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weights</span></em>, <em class="sig-param"><span class="n">fdr</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsNetworkInference.get_adjacency_matrix"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return adjacency matrix.</p>
+<p>Return adjacency matrix resulting from network inference. The adjacency
+matrix can either be generated from FDR-corrected results or
+uncorrected results. Multiple options for the weight are available.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>weights<span class="classifier">str</span></dt><dd><p>can either be</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>‘max_te_lag’: the weights represent the source -&gt; target</dt><dd><p>lag corresponding to the maximum tranfer entropy value
+(see documentation for method get_target_delays for details)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>‘max_p_lag’: the weights represent the source -&gt; target</dt><dd><p>lag corresponding to the maximum p-value
+(see documentation for method get_target_delays for details)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>‘vars_count’: the weights represent the number of</dt><dd><p>statistically-significant source -&gt; target lags</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>‘binary’: return unweighted adjacency matrix with binary</dt><dd><p>entries</p>
+<ul>
+<li><p>1 = significant information transfer;</p></li>
+<li><p>0 = no significant information transfer.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>fdr<span class="classifier">bool [optional]</span></dt><dd><p>return FDR-corrected results (default=True)</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>AdjacencyMatrix instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_target_delays</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">criterion</span><span class="o">=</span><span class="default_value">'max_te'</span></em>, <em class="sig-param"><span class="n">fdr</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsNetworkInference.get_target_delays"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return list of information-transfer delays for a given target.</p>
+<p>Return a list of information-transfer delays for a given target.
+Information-transfer delays are determined by the lag of the variable
+in a source past that has the highest information transfer into the
+target process. There are two ways of identifying the variable with
+maximum information transfer:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>use the variable with the highest absolute TE value (highest
+information transfer),</p></li>
+<li><p>use the variable with the smallest p-value (highest statistical
+significance).</p></li>
+</ol>
+</div></blockquote>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>target<span class="classifier">int</span></dt><dd><p>target index</p>
+</dd>
+<dt>criterion<span class="classifier">str [optional]</span></dt><dd><p>use maximum TE value (‘max_te’) or p-value (‘max_p’) to
+determine the source-target delay (default=’max_te’)</p>
+</dd>
+<dt>fdr<span class="classifier">bool [optional]</span></dt><dd><p>return FDR-corrected results (default=True)</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array</dt><dd><p>information-transfer delays for each source</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">print_edge_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weights</span></em>, <em class="sig-param"><span class="n">fdr</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsNetworkInference.print_edge_list"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Print results of network inference to console.</p>
+<p>Print edge list resulting from network inference to console.
+Output may look like this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">max_te_lag</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">max_te_lag</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="n">max_te_lag</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="n">max_te_lag</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">4</span> <span class="o">-&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="n">max_te_lag</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>The edge list can either be generated from FDR-corrected results
+or uncorrected results. Multiple options for the weight
+are available (see documentation of method get_adjacency_matrix for
+details).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>weights<span class="classifier">str</span></dt><dd><p>link weights (see documentation of method get_adjacency_matrix
+for details)</p>
+</dd>
+<dt>fdr<span class="classifier">bool [optional]</span></dt><dd><p>return FDR-corrected results (default=True)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="results-network-comparison">
+<h2>Results network comparison<a class="headerlink" href="#results-network-comparison" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">idtxl.results.</code><code class="sig-name descname">ResultsNetworkComparison</code><a class="reference internal" href="_modules/idtxl/results.html#ResultsNetworkComparison"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Store results of network comparison.</p>
+<p>Provide a container for results of network comparison algorithms.</p>
+<p>Note that for convenience all dictionaries in this class can additionally
+be accessed using dot-notation: res_network.settings.cmi_estimator
+or res_network.settings[‘cmi_estimator’].</p>
+<dl>
+<dt>Attributes:</dt><dd><dl>
+<dt>settings<span class="classifier">dict</span></dt><dd><p>settings used for estimation of information theoretic measures and
+statistical testing</p>
+</dd>
+<dt>data_properties<span class="classifier">dict</span></dt><dd><p>data properties, contains</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>n_nodes : int - total number of nodes in the network</p></li>
+<li><p>n_realisations : int - number of samples available for
+analysis given the settings (e.g., a high maximum lag used in
+network inference, results in fewer data points available for
+estimation)</p></li>
+<li><p>normalised : bool - indicates if data were z-standardised
+before the estimation</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>surrogate_distribution<span class="classifier">dict</span></dt><dd><p>for each target, surrogate distributions used for testing of each
+link into the target</p>
+</dd>
+<dt>targets_analysed<span class="classifier">list</span></dt><dd><p>list of analysed targets</p>
+</dd>
+<dt>ab<span class="classifier">dict</span></dt><dd><p>for each target, list of comparison results for all links into the
+target; True if link in condition A &gt; link in condition B</p>
+</dd>
+<dt>pval<span class="classifier">dict</span></dt><dd><p>for each target, list of p-values for all compared links</p>
+</dd>
+<dt>cmi_diff_abs<span class="classifier">dict</span></dt><dd><p>for each target, list of absolute difference in interaction measure
+for all compared links</p>
+</dd>
+<dt>data_properties<span class="classifier">dict</span></dt><dd><p>information regarding the data used for analysis</p>
+</dd>
+<dt>settings<span class="classifier">dict</span></dt><dd><p>settings used for comparison</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_adjacency_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">'comparison'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsNetworkComparison.get_adjacency_matrix"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return adjacency matrix.</p>
+<p>Return adjacency matrix resulting from network inference.
+Multiple options for the weights are available.</p>
+<dl>
+<dt>Args:</dt><dd><dl>
+<dt>weights<span class="classifier">str [optional]</span></dt><dd><p>can either be</p>
+<ul class="simple">
+<li><p>‘union’: all links in the union network, i.e., all
+links that were tested for a difference</p></li>
+</ul>
+<p>or return information for links with a significant difference</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>‘comparison’: True for links with a significant difference in</dt><dd><p>inferred effective connectivity (default)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>‘pvalue’: absolute differences in inferred effective</dt><dd><p>connectivity for significant links</p>
+</dd>
+</dl>
+</li>
+<li><p>‘diff_abs’: absolute difference</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>AdjacencyMatrix instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_single_target</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsNetworkComparison.get_single_target"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return results for a single target in the network.</p>
+<p>Results for single targets include for each target</p>
+<ul class="simple">
+<li><p>sources : list of ints - list of sources inferred for the current
+target (union of sources from both data sets entering the comparison)</p></li>
+<li><p>selected_vars_sources : list of tuples - source variables with
+significant information about the current value (union of both
+conditions)</p></li>
+<li><p>selected_vars_target : list of tuples - target variables with
+significant information about the current value (union of both
+conditions)</p></li>
+</ul>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>target<span class="classifier">int</span></dt><dd><p>target id</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dict</dt><dd><p>Results for single target. Note that for convenience
+dictionary entries can either be accessed via keywords
+(result[‘selected_vars_sources’]) or via dot-notation
+(result.selected_vars_sources).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_target_sources</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsNetworkComparison.get_target_sources"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return list of sources (parents) for given target.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>target<span class="classifier">int</span></dt><dd><p>target index</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">print_edge_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">'comparison'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsNetworkComparison.print_edge_list"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Print results of network comparison to console.</p>
+<p>Print results of network comparison to console. Output looks like this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">diff_abs</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">diff_abs</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="n">diff_abs</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="n">diff_abs</span> <span class="o">=</span> <span class="mf">1.3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">4</span> <span class="o">-&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="n">diff_abs</span> <span class="o">=</span> <span class="mf">0.4</span>
+</pre></div>
+</div>
+<p>indicating differences in the network inference measure for a link
+source -&gt; target.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>weights<span class="classifier">str [optional]</span></dt><dd><p>weights for the adjacency matrix (see documentation of method
+get_adjacency_matrix for details)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="results-node-dynamics">
+<h2>Results node dynamics<a class="headerlink" href="#results-node-dynamics" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">idtxl.results.</code><code class="sig-name descname">ResultsSingleProcessAnalysis</code><a class="reference internal" href="_modules/idtxl/results.html#ResultsSingleProcessAnalysis"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Store results of single process analysis.</p>
+<p>Provide a container for the results of algorithms for the analysis of
+individual processes (nodes) in a multivariate stochastic process,
+e.g., estimation of active information storage.</p>
+<p>Note that for convenience all dictionaries in this class can additionally
+be accessed using dot-notation:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_network</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">cmi_estimator</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_network</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;cmi_estimator&#39;</span><span class="p">]</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl>
+<dt>Attributes:</dt><dd><dl>
+<dt>settings<span class="classifier">dict</span></dt><dd><p>settings used for estimation of information theoretic measures and
+statistical testing</p>
+</dd>
+<dt>data_properties<span class="classifier">dict</span></dt><dd><p>data properties, contains</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>n_nodes : int - total number of nodes in the network</p></li>
+<li><p>n_realisations : int - number of samples available for
+analysis given the settings (e.g., a high maximum lag used in
+network inference, results in fewer data points available for
+estimation)</p></li>
+<li><p>normalised : bool - indicates if data were z-standardised
+before estimation</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>processes_analysed<span class="classifier">list</span></dt><dd><p>list of analysed processes</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_significant_processes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fdr</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsSingleProcessAnalysis.get_significant_processes"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return statistically-significant processes.</p>
+<p>Indicates for each process whether AIS is statistically significant
+(equivalent to the adjacency matrix returned for network inference)</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>fdr<span class="classifier">bool [optional]</span></dt><dd><p>return FDR-corrected results, see documentation of network
+inference algorithms and stats.network_fdr (default=True)</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array</dt><dd><p>Statistical significance for each process</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_single_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process</span></em>, <em class="sig-param"><span class="n">fdr</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsSingleProcessAnalysis.get_single_process"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return results for a single process in the network.</p>
+<p>Return results for individual processes, contains for each process</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ais : float - AIS-value for current process</p></li>
+<li><p>ais_pval : float - p-value of AIS estimate</p></li>
+<li><dl class="simple">
+<dt>ais_sign<span class="classifier">bool - significance of AIS estimate wrt. to the</span></dt><dd><p>alpha_mi specified in the settings</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>selected_var<span class="classifier">list of tuples - variables with significant</span></dt><dd><p>information about the current value of the process that have
+been added to the processes past state, a variable is
+described by the index of the process in the data and its lag
+in samples</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>current_value<span class="classifier">tuple - current value used for analysis,</span></dt><dd><p>described by target and sample index in the data</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>Setting fdr to True returns FDR-corrected results (Benjamini, 1995).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>process<span class="classifier">int</span></dt><dd><p>process id</p>
+</dd>
+<dt>fdr<span class="classifier">bool [optional]</span></dt><dd><p>return FDR-corrected results, see documentation of network
+inference algorithms and stats.network_fdr (default=True)</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dict</dt><dd><p>results for single process. Note that for convenience
+dictionary entries can either be accessed via keywords
+(result[‘selected_vars’]) or via dot-notation
+(result.selected_vars).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">processes_analysed</code></dt>
+<dd><p>Get index of the current_value.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">idtxl.results.</code><code class="sig-name descname">ResultsPID</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_nodes</span></em>, <em class="sig-param"><span class="n">n_realisations</span></em>, <em class="sig-param"><span class="n">normalised</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsPID"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Store results of Partial Information Decomposition (PID) analysis.</p>
+<p>Provide a container for results of Partial Information Decomposition (PID)
+algorithms.</p>
+<p>Note that for convenience all dictionaries in this class can additionally
+be accessed using dot-notation:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_pid</span><span class="o">.</span><span class="n">_single_target</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">source_1</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_pid</span><span class="o">.</span><span class="n">_single_target</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="s1">&#39;source_1&#39;</span><span class="p">]</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl>
+<dt>Attributes:</dt><dd><dl>
+<dt>settings<span class="classifier">dict</span></dt><dd><p>settings used for estimation of information theoretic measures and
+statistical testing</p>
+</dd>
+<dt>data_properties<span class="classifier">dict</span></dt><dd><p>data properties, contains</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>n_nodes : int - total number of nodes in the network</p></li>
+<li><p>n_realisations : int - number of samples available for
+analysis given the settings (e.g., a high maximum lag used in
+network inference, results in fewer data points available for
+estimation)</p></li>
+<li><p>normalised : bool - indicates if data were z-standardised
+before the estimation</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>targets_analysed<span class="classifier">list</span></dt><dd><p>list of analysed targets</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_single_target</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsPID.get_single_target"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return results for a single target in the network.</p>
+<p>Results for single targets include for each target</p>
+<ul class="simple">
+<li><p>source_1 : tuple - source variable 1</p></li>
+<li><p>source_2 : tuple - source variable 2</p></li>
+<li><p>selected_vars_sources : list of tuples - source variables used in PID
+estimation</p></li>
+<li><p>s1_unq : float - unique information in source 1</p></li>
+<li><p>s2_unq : float - unique information in source 2</p></li>
+<li><p>syn_s1_s2 : float - synergistic information in sources 1 and 2</p></li>
+<li><p>shd_s1_s2 : float - shared information in sources 1 and 2</p></li>
+<li><p>current_value : tuple - current value used for analysis, described by
+target and sample index in the data</p></li>
+<li><p>[estimator-specific settings]</p></li>
+</ul>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>target<span class="classifier">int</span></dt><dd><p>target id</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dict</dt><dd><p>Results for single target. Note that for convenience
+dictionary entries can either be accessed via keywords
+(result[‘selected_vars_sources’]) or via dot-notation
+(result.selected_vars_sources).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">idtxl.results.</code><code class="sig-name descname">ResultsMultivariatePID</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_nodes</span></em>, <em class="sig-param"><span class="n">n_realisations</span></em>, <em class="sig-param"><span class="n">normalised</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsMultivariatePID"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Store results of Multivariate Partial Information Decomposition (PID)
+analysis.</p>
+<blockquote>
+<div><p>Provide a container for results of Multivariate Partial Information
+Decomposition (PID) algorithms.</p>
+<p>Note that for convenience all dictionaries in this class can additionally
+be accessed using dot-notation:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_pid</span><span class="o">.</span><span class="n">_single_target</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">source_1</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_pid</span><span class="o">.</span><span class="n">_single_target</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="s1">&#39;source_1&#39;</span><span class="p">]</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl>
+<dt>Attributes:</dt><dd><dl>
+<dt>settings<span class="classifier">dict</span></dt><dd><p>settings used for estimation of information theoretic measures and
+statistical testing</p>
+</dd>
+<dt>data_properties<span class="classifier">dict</span></dt><dd><p>data properties, contains</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>n_nodes : int - total number of nodes in the network</p></li>
+<li><p>n_realisations : int - number of samples available for
+analysis given the settings (e.g., a high maximum lag used in
+network inference, results in fewer data points available for
+estimation)</p></li>
+<li><p>normalised : bool - indicates if data were z-standardised
+before the estimation</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>targets_analysed<span class="classifier">list</span></dt><dd><p>list of analysed targets</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_single_target</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsMultivariatePID.get_single_target"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return results for a single target in the network.</p>
+<p>Results for single targets include for each target</p>
+<ul class="simple">
+<li><p>source_i : tuple - source variable i</p></li>
+<li><p>selected_vars_sources : list of tuples - source variables used in PID
+estimation</p></li>
+<li><p>avg : dict - avg pid {alpha -&gt; float} where alpha is a redundancy
+lattice node</p></li>
+<li><p>ptw : dict of dicts - ptw pid {rlz -&gt; {alpha -&gt; float} } where rlz is
+a single realisation of the random variables and alpha is a redundancy
+lattice node</p></li>
+<li><p>current_value : tuple - current value used for analysis, described by
+target and sample index in the data</p></li>
+<li><p>[estimator-specific settings]</p></li>
+</ul>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>target<span class="classifier">int</span></dt><dd><p>target id</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dict</dt><dd><p>Results for single target. Note that for convenience
+dictionary entries can either be accessed via keywords
+(result[‘selected_vars_sources’]) or via dot-notation
+(result.selected_vars_sources).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">idtxl.results.</code><code class="sig-name descname">ResultsSingleProcessRudelt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">processes</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsSingleProcessRudelt"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Store results of single process analysis.</p>
+<p>Provides a container for the results Rudelt optimization algorithm. To
+obtain results for individual processes, call the .get_single_process()
+method (see docstring for details).</p>
+<p>Note that for convenience all dictionaries in this class can additionally
+be accessed using dot-notation:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_network</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">estimation_method</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res_network</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;estimation_method&#39;</span><span class="p">]</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>settings<span class="classifier">dict</span></dt><dd><p>settings used for estimation of information theoretic measures</p>
+</dd>
+<dt>data_properties<span class="classifier">dict</span></dt><dd><dl class="simple">
+<dt>data properties, contains</dt><dd><ul class="simple">
+<li><p>n_processes : int - total number of processes analysed</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>processes_analysed<span class="classifier">list</span></dt><dd><p>list of analysed processes</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_single_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/results.html#ResultsSingleProcessRudelt.get_single_process"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return results for a single process.</p>
+<p>Return results for individual processes, contains for each process</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>process<span class="classifier">int</span></dt><dd><p>process id</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl>
+<dt>dict</dt><dd><p>results for single process. Note that for convenience
+dictionary entries can either be accessed via keywords
+(result[‘selected_vars’]) or via dot-notation
+(result.selected_vars). Contains keys</p>
+<dl class="simple">
+<dt>Process<span class="classifier">int</span></dt><dd><p>Process that was optimized</p>
+</dd>
+<dt>estimation_method<span class="classifier">String</span></dt><dd><p>Estimation method that was used for optimization</p>
+</dd>
+<dt>T_D<span class="classifier">float</span></dt><dd><p>Estimated optimal value for the temporal depth TD</p>
+</dd>
+<dt>tau_R :</dt><dd><p>Information timescale tau_R, a characteristic timescale of history
+dependence similar to an autocorrelation time.</p>
+</dd>
+<dt>R_tot<span class="classifier">float</span></dt><dd><p>Estimated value for the total history dependence Rtot,</p>
+</dd>
+<dt>AIS_tot<span class="classifier">float</span></dt><dd><p>Estimated value for the total active information storage</p>
+</dd>
+<dt>opt_number_of_bins_d<span class="classifier">int</span></dt><dd><p>Number of bins d for the embedding that yields (R̂tot ,T̂D)</p>
+</dd>
+<dt>opt_scaling_k<span class="classifier">int</span></dt><dd><p>Scaling exponent κ for the embedding that yields (R̂tot , T̂D)</p>
+</dd>
+<dt>opt_first_bin_size<span class="classifier">int</span></dt><dd><p>Size of the first bin τ1 for the embedding that yields (R̂tot , T̂D ),</p>
+</dd>
+<dt>history_dependence<span class="classifier">array with floating-point values</span></dt><dd><p>Estimated history dependence for each embedding</p>
+</dd>
+<dt>firing_rate<span class="classifier">float</span></dt><dd><p>Firing rate of the neuron/ spike train</p>
+</dd>
+<dt>recording_length<span class="classifier">float</span></dt><dd><p>Length of the recording (in seconds)</p>
+</dd>
+<dt>H_spiking<span class="classifier">float</span></dt><dd><p>Entropy of the spike times</p>
+</dd>
+</dl>
+<p>if analyse_auto_MI was set to True additionally:
+auto_MI : dict</p>
+<blockquote>
+<div><p>numpy array of MI values for each delay</p>
+</div></blockquote>
+<dl class="simple">
+<dt>auto_MI_delays<span class="classifier">list of int</span></dt><dd><p>list of delays depending on the given auto_MI_bin_sizes and auto_MI_max_delay</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">processes_analysed</code></dt>
+<dd><p>Get index of the current_value.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Results Class</a><ul>
+<li><a class="reference internal" href="#results-network-inference">Results network inference</a></li>
+<li><a class="reference internal" href="#results-network-comparison">Results network comparison</a></li>
+<li><a class="reference internal" href="#results-node-dynamics">Results node dynamics</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="idtxl_network_comparison.html"
+                        title="previous chapter">Network comparison</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="idtxl_estimators.html"
+                        title="next chapter">Information theoretic estimators</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/idtxl_results_class.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idtxl_estimators.html" title="Information theoretic estimators"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="idtxl_network_comparison.html" title="Network comparison"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">IDTxl 1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">The Results Class</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Patricia Wollstadt, Joseph T. Lizier, Raul Vicente, Conor Finn, Mario Martinez-Zarzuela, Pedro Mediano, Leonardo Novelli, Michael Wibral.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

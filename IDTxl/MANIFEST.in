@@ -1,0 +1,4 @@
+include idtxl/infodynamics.jar
+include idtxl/gpuKnnKernelNoIdx.cl
+recursive-include test/data *
+recursive-include docs *

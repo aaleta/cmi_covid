@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Network comparison &#8212; IDTxl 1.4 documentation</title>
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Results Class" href="idtxl_results_class.html" />
+    <link rel="prev" title="Algorithms for the analysis of node dynamics" href="idtxl_process_analysis.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idtxl_results_class.html" title="The Results Class"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="idtxl_process_analysis.html" title="Algorithms for the analysis of node dynamics"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">IDTxl 1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Network comparison</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="network-comparison">
+<h1>Network comparison<a class="headerlink" href="#network-comparison" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">idtxl.network_comparison.</code><code class="sig-name descname">NetworkComparison</code><a class="reference internal" href="_modules/idtxl/network_comparison.html#NetworkComparison"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Set up network comparison between two experimental conditions.</p>
+<p>The class provides methods for the comparison of networks inferred from
+data recorded under two experimental conditions A and B. Four statistical
+tests are implemented:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>units of observation/
+comparison type</p></th>
+<th class="head"><p>stats_type</p></th>
+<th class="head"><p>example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>replications/
+<strong>within</strong> a subject</p></td>
+<td><p>dependent</p></td>
+<td><p>base line (A) vs. task (B)</p></td>
+</tr>
+<tr class="row-odd"><td><p>independent</p></td>
+<td><p>detect house (A) vs. face (B)</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>sets of data/
+<strong>between</strong> subjects</p></td>
+<td><p>dependent</p></td>
+<td><p>patients (A) vs. matched controls (B)</p></td>
+</tr>
+<tr class="row-odd"><td><p>independent</p></td>
+<td><p>male (A) vs. female (B) participants</p></td>
+</tr>
+</tbody>
+</table>
+<p>Depending on the units of observations, one of two statistics methods can
+be used: compare_within() and compare_between(). The stats_type is passed
+as an analysis setting, see the documentation of the two methods for
+details.</p>
+<p>Note that for network inference methods that use an embedding, i.e., a
+collection of variables in the source, the joint information in all
+variables about the target is used as a test statistic.</p>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">calculate_link_te</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">sources</span><span class="o">=</span><span class="default_value">'all'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/network_comparison.html#NetworkComparison.calculate_link_te"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Calculate the information transfer for whole links into a target.</p>
+<p>Calculate the information transfer for whole links as the joint
+information transfer from all variables selected for a single source
+process into the target. The information transfer is calculated
+conditional on the target’s past and, for multivariate TE, conditional
+on selected variables from further sources in the network.</p>
+<p>If sources is set to ‘all’, a list of information transfer values is
+returned. If sources is set to a single source index, the information
+transfer from this source to the target is returned.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>data<span class="classifier">Data instance</span></dt><dd><p>raw data for analysis</p>
+</dd>
+<dt>target<span class="classifier">int</span></dt><dd><p>index of target process</p>
+</dd>
+<dt>sources<span class="classifier">list of ints | ‘all’ [optional]</span></dt><dd><p>return estimates for links from selected or all sources into
+the target (default=’all’)</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array</dt><dd><p>information transfer estimate for each link</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">compare_between</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">settings</span></em>, <em class="sig-param"><span class="n">network_set_a</span></em>, <em class="sig-param"><span class="n">network_set_b</span></em>, <em class="sig-param"><span class="n">data_set_a</span></em>, <em class="sig-param"><span class="n">data_set_b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/network_comparison.html#NetworkComparison.compare_between"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Compare networks inferred under two conditions between subjects.</p>
+<p>Compare two sets of networks inferred from two sets of data recorded
+under different experimental conditions within multiple subjects, i.e.,
+data have been recorded from subjects assigned to one of two
+experimental conditions (units of observations are subjects).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>settings<span class="classifier">dict</span></dt><dd><p>parameters for estimation and statistical testing, see
+documentation of compare_within() for details</p>
+</dd>
+<dt>network_set_a<span class="classifier">numpy array of dicts</span></dt><dd><p>results from network inference for multiple subjects observed
+under condition a</p>
+</dd>
+<dt>network_set_b<span class="classifier">numpy array of dicts</span></dt><dd><p>results from network inference for multiple subjects observed
+under condition b</p>
+</dd>
+<dt>data_a<span class="classifier">numpy array of Data objects</span></dt><dd><p>set of data from which network_set_a was inferred</p>
+</dd>
+<dt>data_b<span class="classifier">numpy array of Data objects</span></dt><dd><p>set of data from which network_set_b was inferred</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns</dt><dd><dl class="simple">
+<dt>ResultsNetworkComparison object</dt><dd><p>results of network inference, see documentation of
+ResultsNetworkComparison()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">compare_links_within</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">settings</span></em>, <em class="sig-param"><span class="n">link_a</span></em>, <em class="sig-param"><span class="n">link_b</span></em>, <em class="sig-param"><span class="n">network</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/network_comparison.html#NetworkComparison.compare_links_within"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Compare two links within the same network.</p>
+<p>Compare two links within the same network. Check if information
+transfer is different from information transfer in a second link.</p>
+<p>Note that both links have to be part of the inferred network, i.e.,
+there has to be significant effective connectivity for both links.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>settings<span class="classifier">dict</span></dt><dd><p>parameters for estimation and statistical testing</p>
+<ul class="simple">
+<li><p>stats_type : str - ‘dependent’ or ‘independent’ for
+dependent or independent units of observation</p></li>
+<li><p>cmi_estimator : str - estimator to be used for CMI
+calculation (for estimator settings see the documentation in
+the estimators_* modules)</p></li>
+<li><p>tail_comp : str [optional] - test tail, ‘one’ for one-sided
+test A &gt; B, ‘two’ for two-sided test (default=’two’)</p></li>
+<li><p>n_perm_comp : int [optional] - number of permutations
+(default=500)</p></li>
+<li><p>alpha_comp : float - critical alpha level for statistical
+significance (default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - if True, create
+surrogates by shuffling data over time. See
+Data.permute_samples() for settings for further options for
+surrogate creation</p></li>
+<li><p>verbose : bool [optional] - toggle console output
+(default=True)</p></li>
+</ul>
+</dd>
+<dt>link_a<span class="classifier">array type</span></dt><dd><p>first link, array type with two entries [source target]</p>
+</dd>
+<dt>link_b<span class="classifier">array type</span></dt><dd><p>second link, array type with two entries [source target]</p>
+</dd>
+<dt>network<span class="classifier">dict</span></dt><dd><p>results from network inference</p>
+</dd>
+<dt>data<span class="classifier">Data object</span></dt><dd><p>data from which network was inferred</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns</dt><dd><dl class="simple">
+<dt>ResultsNetworkComparison object</dt><dd><p>results of network inference, see documentation of
+ResultsNetworkComparison()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">compare_within</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">settings</span></em>, <em class="sig-param"><span class="n">network_a</span></em>, <em class="sig-param"><span class="n">network_b</span></em>, <em class="sig-param"><span class="n">data_a</span></em>, <em class="sig-param"><span class="n">data_b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/network_comparison.html#NetworkComparison.compare_within"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Compare networks inferred under two conditions within one subject.</p>
+<p>Compare two networks inferred from data recorded under two different
+experimental conditions within one subject (units of observations are
+replications of one experimental condition within one subject).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>settings<span class="classifier">dict</span></dt><dd><p>parameters for estimation and statistical testing</p>
+<ul class="simple">
+<li><p>stats_type : str - ‘dependent’ or ‘independent’ for
+dependent or independent units of observation</p></li>
+<li><p>cmi_estimator : str - estimator to be used for CMI
+calculation (for estimator settings see the documentation in
+the estimators_* modules)</p></li>
+<li><p>tail_comp : str [optional] - test tail, ‘one’ for one-sided
+test A &gt; B, ‘two’ for two-sided test (default=’two’)</p></li>
+<li><p>n_perm_comp : int [optional] - number of permutations
+(default=500)</p></li>
+<li><p>alpha_comp : float - critical alpha level for statistical
+significance (default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - if True, create
+surrogates by shuffling data over time. See
+Data.permute_samples() for settings for further options for
+surrogate creation</p></li>
+<li><p>verbose : bool [optional] - toggle console output
+(default=True)</p></li>
+</ul>
+</dd>
+<dt>network_a<span class="classifier">dict</span></dt><dd><p>results from network inference, condition a</p>
+</dd>
+<dt>network_b<span class="classifier">dict</span></dt><dd><p>results from network inference, condition b</p>
+</dd>
+<dt>data_a<span class="classifier">Data object</span></dt><dd><p>data from which network_a was inferred</p>
+</dd>
+<dt>data_b<span class="classifier">Data object</span></dt><dd><p>data from which network_b was inferred</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns</dt><dd><dl class="simple">
+<dt>ResultsNetworkComparison object</dt><dd><p>results of network inference, see documentation of
+ResultsNetworkComparison()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="idtxl_process_analysis.html"
+                        title="previous chapter">Algorithms for the analysis of node dynamics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="idtxl_results_class.html"
+                        title="next chapter">The Results Class</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/idtxl_network_comparison.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idtxl_results_class.html" title="The Results Class"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="idtxl_process_analysis.html" title="Algorithms for the analysis of node dynamics"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">IDTxl 1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Network comparison</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Patricia Wollstadt, Joseph T. Lizier, Raul Vicente, Conor Finn, Mario Martinez-Zarzuela, Pedro Mediano, Leonardo Novelli, Michael Wibral.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

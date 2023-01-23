@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Helper functions &#8212; IDTxl 1.4 documentation</title>
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="idtxl package" href="idtxl.html" />
+    <link rel="prev" title="Postprocessing of inferred networks" href="idtxl_postprocessing.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idtxl.html" title="idtxl package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="idtxl_postprocessing.html" title="Postprocessing of inferred networks"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">IDTxl 1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Helper functions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="helper-functions">
+<h1>Helper functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h1>
+<section id="utils-module">
+<h2>utils module<a class="headerlink" href="#utils-module" title="Permalink to this headline">¶</a></h2>
+<p>Provide IDTxl utility functions.</p>
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">argsort_descending</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#argsort_descending"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Sort array in descending order and return sortind indices.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">autocorrelation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#autocorrelation"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Calculate autocorrelation of a vector.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">calculate_mi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">corr</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#calculate_mi"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Calculate mutual information from correlation coefficient.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">combine_discrete_dimensions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">numBins</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#combine_discrete_dimensions"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Combine multi-dimensional discrete variable into a single dimension.</p>
+<p>Combine all dimensions for a discrete variable down into a single
+dimensional value for each sample. This is done basically by multiplying
+each dimension by a different power of the base (numBins).</p>
+<p>Adapted from infodynamics.utils.MatrixUtils.computeCombinedValues() from
+JIDT by J.Lizier.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>a<span class="classifier">numpy array</span></dt><dd><p>data to be combined across all variable dimensions. Dimensions are
+realisations (samples) x variable dimension</p>
+</dd>
+<dt>numBins<span class="classifier">int</span></dt><dd><p>number of discrete levels or bins for each variable dimension</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array</dt><dd><p>a univariate array – one entry now for each sample,
+with all dimensions of the data now combined for that sample</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">conflicting_entries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dict_1</span></em>, <em class="sig-param"><span class="n">dict_2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#conflicting_entries"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Test two dictionaries for unequal entries.</p>
+<p>Note that only keys that are present in both dicts are compared. If one
+dictionary contains an entry not present in the other dictionary, the
+test passes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">discretise</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">numBins</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#discretise"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Discretise continuous data.</p>
+<p>Discretise continuous data into discrete values (with 0 as lowest) by
+evenly partitioning the range of the data, one dimension at a time.
+Adapted from infodynamics.utils.MatrixUtils.discretise() from JIDT by
+J. Lizier.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>a<span class="classifier">numpy array</span></dt><dd><p>data to be discretised. Dimensions are
+realisations x variable dimension</p>
+</dd>
+<dt>numBins<span class="classifier">int</span></dt><dd><p>number of discrete levels or bins to partition the data into</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array</dt><dd><p>discretised data</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">discretise_max_ent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">numBins</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#discretise_max_ent"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Discretise continuous data using maximum entropy partitioning.</p>
+<p>Discretise continuous data into discrete values (with 0 as lowest) by
+making a maximum entropy partitioning, one dimension at a time. Adapted
+from infodynamics.utils.MatrixUtils.discretiseMaxEntropy() from JIDT by
+J. Lizier.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>a<span class="classifier">numpy array</span></dt><dd><p>data to be discretised. Dimensions are
+realisations x variable dimension</p>
+</dd>
+<dt>numBins<span class="classifier">int</span></dt><dd><p>number of discrete levels or bins to partition the data into</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array</dt><dd><p>discretised data</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">equal_dicts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dict_1</span></em>, <em class="sig-param"><span class="n">dict_2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#equal_dicts"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Test two dictionaries for equality.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">print_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span></em>, <em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#print_dict"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Use Python’s pretty printer to print dictionaries to the console.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">remove_column</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">j</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#remove_column"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Remove a column from a numpy array.</p>
+<p>This is faster than logical indexing (‘25 times faster’), because it does
+not make copies, see
+<a class="reference external" href="http://scipy.github.io/old-wiki/pages/PerformanceTips">http://scipy.github.io/old-wiki/pages/PerformanceTips</a></p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>a<span class="classifier">numpy array</span></dt><dd><p>2-dimensional numpy array</p>
+</dd>
+<dt>i<span class="classifier">int</span></dt><dd><p>column index to be removed</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">remove_row</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">i</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#remove_row"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Remove a row from a numpy array.</p>
+<p>This is faster than logical indexing (‘25 times faster’), because it does
+not make copies, see
+<a class="reference external" href="http://scipy.github.io/old-wiki/pages/PerformanceTips">http://scipy.github.io/old-wiki/pages/PerformanceTips</a></p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>a<span class="classifier">numpy array</span></dt><dd><p>2-dimensional numpy array</p>
+</dd>
+<dt>i<span class="classifier">int</span></dt><dd><p>row index to be removed</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">separate_arrays</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx_all</span></em>, <em class="sig-param"><span class="n">idx_single</span></em>, <em class="sig-param"><span class="n">a</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#separate_arrays"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Separate a single column from all other columns in a 2D-array.</p>
+<p>Return the separated single column and the remaining columns of a 2D-
+array.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>idx_all<span class="classifier">list&lt;Object&gt;</span></dt><dd><p>list of variables indicating the full set</p>
+</dd>
+<dt>idx_single<span class="classifier">&lt;Object&gt;</span></dt><dd><p>single variable indicating the column to be separated, variable
+must be contained in idx_all</p>
+</dd>
+<dt>a<span class="classifier">numpy array</span></dt><dd><p>2D-array with the same length along axis 1 as idx_all
+(.shape[1] == len(idx_all))</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array</dt><dd><p>remaining columns in full array</p>
+</dd>
+<dt>numpy array</dt><dd><p>column at single index</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">sort_descending</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#sort_descending"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Sort array in descending order.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">standardise</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">dimension</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">df</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#standardise"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Z-standardise a numpy array along a given dimension.</p>
+<p>Standardise array along the axis defined in dimension using the denominator
+(N - df) for the calculation of the standard deviation.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>a<span class="classifier">numpy array</span></dt><dd><p>data to be standardised</p>
+</dd>
+<dt>dimension<span class="classifier">int [optional]</span></dt><dd><p>dimension along which array should be standardised</p>
+</dd>
+<dt>df<span class="classifier">int [optional]</span></dt><dd><p>degrees of freedom for the denominator of the standard derivation</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array</dt><dd><p>standardised data</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.idtxl_utils.</code><code class="sig-name descname">swap_chars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em>, <em class="sig-param"><span class="n">i_1</span></em>, <em class="sig-param"><span class="n">i_2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/idtxl_utils.html#swap_chars"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Swap to characters in a string.</p>
+<dl>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">swap_chars</span><span class="p">(</span><span class="s1">&#39;heLlotHere&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="go">&#39;heHlotLere&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="stats-module">
+<h2>stats module<a class="headerlink" href="#stats-module" title="Permalink to this headline">¶</a></h2>
+<p>Provide statistics functions.</p>
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">ais_fdr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">settings</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">results</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#ais_fdr"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Perform FDR-correction on results of network AIS estimation.</p>
+<p>Perform correction of the false discovery rate (FDR) after estimation of
+active information storage (AIS) for all processes in the network. FDR
+correction is applied by correcting the AIS estimate’s omnibus p-values for
+individual processes/nodes in the network.</p>
+<p>Input can be a list of partial results to combine results from parallel
+analysis.</p>
+<p>References:</p>
+<ul class="simple">
+<li><p>Genovese, C.R., Lazar, N.A., &amp; Nichols, T. (2002). Thresholding of
+statistical maps in functional neuroimaging using the false discovery
+rate. Neuroimage, 15(4), 870-878.</p></li>
+</ul>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>settings<span class="classifier">dict [optional]</span></dt><dd><p>parameters for statistical testing with entries:</p>
+<ul class="simple">
+<li><p>alpha_fdr : float [optional] - critical alpha level
+(default=0.05)</p></li>
+<li><p>fdr_constant : int [optional] - choose one of two constants used
+for calculating the FDR-thresholds according to Genovese (2002):
+1 will divide alpha by 1, 2 will divide alpha by the sum_i(1/i);
+see the paper for details on the assumptions (default=2)</p></li>
+</ul>
+</dd>
+<dt>results<span class="classifier">instances of ResultsSingleProcessAnalysis</span></dt><dd><p>results of network AIS estimation, see documentation of
+ResultsSingleProcessAnalysis()</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>ResultsSingleProcessAnalysis instance</dt><dd><p>input results objects pruned of non-significant estimates</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">check_n_perm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_perm</span></em>, <em class="sig-param"><span class="n">alpha</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#check_n_perm"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Check if no. permutations is big enough to obtain the requested alpha.</p>
+<dl class="simple">
+<dt>Note:</dt><dd><p>The no. permutations must be big enough to theoretically allow for the
+detection of a p-value that is smaller than the critical alpha level.
+Otherwise the permutation test is pointless. The smalles possible
+p-value is 1/n_perm.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">max_statistic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis_setup</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">candidate_set</span></em>, <em class="sig-param"><span class="n">te_max_candidate</span></em>, <em class="sig-param"><span class="n">conditional</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#max_statistic"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Perform maximum statistics for one candidate source.</p>
+<p>Test if a transfer entropy value is significantly bigger than the maximum
+values obtained from surrogates of all remanining candidates.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>analysis_setup<span class="classifier">MultivariateTE instance</span></dt><dd><p>information on the current analysis, can have an optional attribute
+‘settings’, a dictionary with parameters for statistical testing:</p>
+<ul class="simple">
+<li><p>n_perm_max_stat : int [optional] - number of permutations
+(default=200)</p></li>
+<li><p>alpha_max_stat : float [optional] - critical alpha level
+(default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - generate surrogates by
+shuffling samples in time instead of shuffling whole replications
+(default=False)</p></li>
+</ul>
+</dd>
+<dt>data<span class="classifier">Data instance</span></dt><dd><p>raw data</p>
+</dd>
+<dt>candidate_set<span class="classifier">list of tuples</span></dt><dd><p>list of indices of remaning candidates</p>
+</dd>
+<dt>te_max_candidate<span class="classifier">float</span></dt><dd><p>transfer entropy value to be tested</p>
+</dd>
+<dt>conditional<span class="classifier">numpy array</span></dt><dd><p>realisations of conditional, 2D numpy array where array dimensions
+represent [realisations x variable dimension]</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>bool</dt><dd><p>statistical significance</p>
+</dd>
+<dt>float</dt><dd><p>the test’s p-value</p>
+</dd>
+<dt>numpy array</dt><dd><p>surrogate table</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>ex.AlgorithmExhaustedError</dt><dd><p>Raised from _create_surrogate_table() when calculation cannot be
+made</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">max_statistic_sequential</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis_setup</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#max_statistic_sequential"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Perform sequential maximum statistics for a set of candidate sources.</p>
+<p>Test multivariate/bivariate MI/TE values against surrogates. Test highest
+TE/MI value against distribution of highest surrogate values, second
+highest against distribution of second highest, and so forth. Surrogates
+are created from each candidate in the candidate set, including the
+candidate that is currently tested. Surrogates are then sorted over
+candidates. This is repeated n_perm_max_seq times. Stop comparison if a
+TE/MI value is not significant compared to the distribution of surrogate
+values of the same rank. All smaller values are considered non-significant
+as well.</p>
+<p>The conditional for estimation of MI/TE is taken from the current set of
+conditional variables in the analysis setup. For multivariate MI or TE
+surrogate creation, the full set of conditional variables is used. For
+bivariate MI or TE surrogate creation, the conditioning set has to be
+restricted to a subset of the current set of conditional variables: for
+bivariate MI no conditioning set is required, for bivariate TE only the
+past variables from the target are required (not the variables selected
+from other relevant sources).</p>
+<p>This function will re-use the surrogate table created in the last min-stats
+round if that table is in the analysis_setup. This saves the complete
+calculation of surrogates for this statistic.</p>
+<p>Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>analysis_setup<span class="classifier">MultivariateTE instance</span></dt><dd><p>information on the current analysis, can have an optional attribute
+‘settings’, a dictionary with parameters for statistical testing:</p>
+<ul class="simple">
+<li><p>n_perm_max_seq : int [optional] - number of permutations
+(default=’n_perm_min_stat’<a href="#system-message-1"><span class="problematic" id="problematic-1">|</span></a>500)</p></li>
+<li><p>alpha_max_seq : float [optional] - critical alpha level
+(default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - generate surrogates by
+shuffling samples in time instead of shuffling whole replications
+(default=False)</p></li>
+</ul>
+</dd>
+<dt>data<span class="classifier">Data instance</span></dt><dd><p>raw data</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array, bool</dt><dd><p>statistical significance of each source</p>
+</dd>
+<dt>numpy array, float</dt><dd><p>the test’s p-values for each source</p>
+</dd>
+<dt>numpy array, float</dt><dd><p>TE values for individual sources</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">max_statistic_sequential_bivariate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis_setup</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#max_statistic_sequential_bivariate"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Perform sequential maximum statistics for a set of candidate sources.</p>
+<p>Test multivariate/bivariate MI/TE values against surrogates. Test highest
+TE/MI value against distribution of highest surrogate values, second
+highest against distribution of second highest, and so forth. Surrogates
+are created from each candidate in the candidate set, including the
+candidate that is currently tested. Surrogates are then sorted over
+candidates. This is repeated n_perm_max_seq times. Stop comparison if a
+TE/MI value is not significant compared to the distribution of surrogate
+values of the same rank. All smaller values are considered non-significant
+as well.</p>
+<p>The conditional for estimation of MI/TE is taken from the current set of
+conditional variables in the analysis setup. For multivariate MI or TE
+surrogate creation, the full set of conditional variables is used. For
+bivariate MI or TE surrogate creation, the conditioning set has to be
+restricted to a subset of the current set of conditional variables: for
+bivariate MI no conditioning set is required, for bivariate TE only the
+past variables from the target are required (not the variables selected
+from other relevant sources).</p>
+<p>This function will re-use the surrogate table created in the last min-stats
+round if that table is in the analysis_setup. This saves the complete
+calculation of surrogates for this statistic.</p>
+<p>Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>analysis_setup<span class="classifier">MultivariateTE instance</span></dt><dd><p>information on the current analysis, can have an optional attribute
+‘settings’, a dictionary with parameters for statistical testing:</p>
+<ul class="simple">
+<li><p>n_perm_max_seq : int [optional] - number of permutations
+(default=’n_perm_min_stat’<a href="#system-message-2"><span class="problematic" id="problematic-2">|</span></a>500)</p></li>
+<li><p>alpha_max_seq : float [optional] - critical alpha level
+(default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - generate surrogates by
+shuffling samples in time instead of shuffling whole replications
+(default=False)</p></li>
+</ul>
+</dd>
+<dt>data<span class="classifier">Data instance</span></dt><dd><p>raw data</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>numpy array, bool</dt><dd><p>statistical significance of each source</p>
+</dd>
+<dt>numpy array, float</dt><dd><p>the test’s p-values for each source</p>
+</dd>
+<dt>numpy array, float</dt><dd><p>TE values for individual sources</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">mi_against_surrogates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis_setup</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#mi_against_surrogates"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Test estimated mutual information for significance against surrogate data.</p>
+<p>Shuffle realisations of the current value (point to be predicted) and re-
+calculate mutual information (MI) for shuffled data. The actual estimated
+MI is then compared against this distribution of MI values from surrogate
+data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>analysis_setup<span class="classifier">MultivariateTE instance</span></dt><dd><p>information on the current analysis, can have an optional attribute
+‘settings’, a dictionary with parameters for statistical testing:</p>
+<ul class="simple">
+<li><p>n_perm_mi : int [optional] - number of permutations
+(default=500)</p></li>
+<li><p>alpha_mi : float [optional] - critical alpha level
+(default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - generate surrogates by
+shuffling samples in time instead of shuffling whole replications
+(default=False)</p></li>
+</ul>
+</dd>
+<dt>data<span class="classifier">Data instance</span></dt><dd><p>raw data</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>float</dt><dd><p>estimated MI value</p>
+</dd>
+<dt>bool</dt><dd><p>statistical significance</p>
+</dd>
+<dt>float</dt><dd><p>p_value for estimated MI value</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>ex.AlgorithmExhaustedError</dt><dd><p>Raised from estimate() methods when calculation cannot be made</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">min_statistic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis_setup</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">candidate_set</span></em>, <em class="sig-param"><span class="n">te_min_candidate</span></em>, <em class="sig-param"><span class="n">conditional</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#min_statistic"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Perform minimum statistics for one candidate source.</p>
+<p>Test if a transfer entropy value is significantly bigger than the minimum
+values obtained from surrogates of all remanining candidates.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>analysis_setup<span class="classifier">MultivariateTE instance</span></dt><dd><p>information on the current analysis, can have an optional attribute
+‘settings’, a dictionary with parameters for statistical testing:</p>
+<ul class="simple">
+<li><p>n_perm_min_stat : int [optional] - number of permutations
+(default=500)</p></li>
+<li><p>alpha_min_stat : float [optional] - critical alpha level
+(default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - generate surrogates by
+shuffling samples in time instead of shuffling whole replications
+(default=False)</p></li>
+</ul>
+</dd>
+<dt>data<span class="classifier">Data instance</span></dt><dd><p>raw data</p>
+</dd>
+<dt>candidate_set<span class="classifier">list of tuples</span></dt><dd><p>list of indices of remaning candidates</p>
+</dd>
+<dt>te_min_candidate<span class="classifier">float</span></dt><dd><p>transfer entropy value to be tested</p>
+</dd>
+<dt>conditional<span class="classifier">numpy array [optional]</span></dt><dd><p>realisations of conditional, 2D numpy array where array dimensions
+represent [realisations x variable dimension] (default=None, no
+conditioning performed)</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>bool</dt><dd><p>statistical significance</p>
+</dd>
+<dt>float</dt><dd><p>the test’s p-value</p>
+</dd>
+<dt>numpy array</dt><dd><p>surrogate table</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>ex.AlgorithmExhaustedError</dt><dd><p>Raised from _create_surrogate_table() when calculation cannot be
+made</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">network_fdr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">settings</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">results</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#network_fdr"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Perform FDR-correction on results of network inference.</p>
+<p>Perform correction of the false discovery rate (FDR) after network
+analysis. FDR correction can either be applied at the target level
+(by correcting omnibus p-values) or at the single-link level (by correcting
+p-values of individual links between single samples and the target).</p>
+<p>Input can be a list of partial results to combine results from parallel
+analysis.</p>
+<p>References:</p>
+<ul class="simple">
+<li><p>Genovese, C.R., Lazar, N.A., &amp; Nichols, T. (2002). Thresholding of
+statistical maps in functional neuroimaging using the false discovery
+rate. Neuroimage, 15(4), 870-878.</p></li>
+</ul>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>settings<span class="classifier">dict [optional]</span></dt><dd><p>parameters for statistical testing with entries:</p>
+<ul class="simple">
+<li><p>alpha_fdr : float [optional] - critical alpha level
+(default=0.05)</p></li>
+<li><p>correct_by_target : bool [optional] - if true correct p-values on
+on the target level (omnibus test p-values), otherwise correct
+p_values for individual variables (sequential max stats p-values)
+(default=True)</p></li>
+<li><p>fdr_constant : int [optional] - choose one of two constants used
+for calculating the FDR-thresholds according to Genovese (2002):
+1 will divide alpha by 1, 2 will divide alpha by the sum_i(1/i);
+see the paper for details on the assumptions (default=2)</p></li>
+</ul>
+</dd>
+<dt>results<span class="classifier">instances of ResultsNetworkInference</span></dt><dd><p>results of network inference, see documentation of
+ResultsNetworkInference()</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>ResultsNetworkInference instance</dt><dd><p>input object pruned of non-significant links</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">omnibus_test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis_setup</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#omnibus_test"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Perform an omnibus test on identified conditional variables.</p>
+<p>Test the joint information transfer from all identified sources to the
+current value conditional on candidates in the target’s past. To test for
+significance, this is repeated for shuffled realisations of the sources.
+The distribution of values from shuffled data is then used as test
+distribution.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>analysis_setup<span class="classifier">MultivariateTE instance</span></dt><dd><p>information on the current analysis, can have an optional attribute
+‘settings’, a dictionary with parameters for statistical testing:</p>
+<ul class="simple">
+<li><p>n_perm_omnibus : int [optional] - number of permutations
+(default=500)</p></li>
+<li><p>alpha_omnibus : float [optional] - critical alpha level
+(default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - generate surrogates by
+shuffling samples in time instead of shuffling whole replications
+(default=False)</p></li>
+</ul>
+</dd>
+<dt>data<span class="classifier">Data instance</span></dt><dd><p>raw data</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>bool</dt><dd><p>statistical significance</p>
+</dd>
+<dt>float</dt><dd><p>the test’s p-value</p>
+</dd>
+<dt>float</dt><dd><p>the estimated test statisic, i.e., the information transfer from
+all sources into the target</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>ex.AlgorithmExhaustedError</dt><dd><p>Raised from estimate() calls when calculation cannot be made</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">syn_shd_against_surrogates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis_setup</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#syn_shd_against_surrogates"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Test the shared/synergistic information in the PID estimate.</p>
+<p>Shuffle realisations of the target and re-calculate PID, in particular the
+synergistic and shared information from shuffled data. The original
+shared and synergistic information are then compared against the
+distribution of values calculated from surrogate data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>analysis_setup<span class="classifier">Partial_information_decomposition instance</span></dt><dd><p>information on the current analysis, should have an Attribute
+‘settings’, a dict with optional fields</p>
+<ul class="simple">
+<li><p>n_perm : int [optional] - number of permutations (default=500)</p></li>
+<li><p>alpha : float [optional] - critical alpha level (default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - generate surrogates by
+shuffling samples in time instead of shuffling whole replications
+(default=False)</p></li>
+</ul>
+</dd>
+<dt>data<span class="classifier">Data instance</span></dt><dd><p>raw data</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dict</dt><dd><p>PID estimate from original data</p>
+</dd>
+<dt>bool</dt><dd><p>statistical significance of the shared information</p>
+</dd>
+<dt>float</dt><dd><p>p-value of the shared information</p>
+</dd>
+<dt>bool</dt><dd><p>statistical significance of the synergistic information</p>
+</dd>
+<dt>float</dt><dd><p>p-value of the synergistic information</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">idtxl.stats.</code><code class="sig-name descname">unq_against_surrogates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis_setup</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/idtxl/stats.html#unq_against_surrogates"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Test the unique information in the PID estimate against surrogate data.</p>
+<p>Shuffle realisations of both sources individually and re-calculate PID,
+in particular the unique information from shuffled data. The original
+unique information is then compared against the distribution of values
+calculated from surrogate data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>analysis_setup<span class="classifier">Partial_information_decomposition instance</span></dt><dd><p>information on the current analysis, should have an Attribute
+‘settings’, a dict with optional fields</p>
+<ul class="simple">
+<li><p>n_perm : int [optional] - number of permutations (default=500)</p></li>
+<li><p>alpha : float [optional] - critical alpha level (default=0.05)</p></li>
+<li><p>permute_in_time : bool [optional] - generate surrogates by
+shuffling samples in time instead of shuffling whole replications
+(default=False)</p></li>
+</ul>
+</dd>
+<dt>data<span class="classifier">Data instance</span></dt><dd><p>raw data</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dict</dt><dd><p>PID estimate from original data</p>
+</dd>
+<dt>bool</dt><dd><p>statistical significance of the unique information in source 1</p>
+</dd>
+<dt>float</dt><dd><p>p-value of the unique information in source 1</p>
+</dd>
+<dt>bool</dt><dd><p>statistical significance of the unique information in source 2</p>
+</dd>
+<dt>float</dt><dd><p>p-value of the unique information in source 2</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Helper functions</a><ul>
+<li><a class="reference internal" href="#utils-module">utils module</a></li>
+<li><a class="reference internal" href="#stats-module">stats module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="idtxl_postprocessing.html"
+                        title="previous chapter">Postprocessing of inferred networks</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="idtxl.html"
+                        title="next chapter">idtxl package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/idtxl_helper.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idtxl.html" title="idtxl package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="idtxl_postprocessing.html" title="Postprocessing of inferred networks"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">IDTxl 1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Helper functions</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Patricia Wollstadt, Joseph T. Lizier, Raul Vicente, Conor Finn, Mario Martinez-Zarzuela, Pedro Mediano, Leonardo Novelli, Michael Wibral.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>
