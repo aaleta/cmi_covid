@@ -3,6 +3,7 @@ import numpy as np
 import concurrent.futures
 from idtxl.data import Data
 from idtxl.multivariate_te import MultivariateTE
+from idtxl.stats import network_fdr
 from utils import get_n_groups
 
 
@@ -75,4 +76,13 @@ def run_cmi_process(settings: dict, data: np.ndarray, max_workers: int = 100):
             analysis['results'].append({'age_group': age_group,
                                         'result': future.result()})
 
+    # Combine the results nad perform the FDR correction
+    res_list = list(range(n_groups))
+    for result in analysis['results']:
+        res_list[result['age_group']] = result['result']
+
+    res = network_fdr({'alpha_fdr': 0.05}, *res_list)
+    analysis['combined_results'] = res
+
     return analysis
+
