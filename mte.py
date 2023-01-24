@@ -18,7 +18,7 @@ def build_settings(args) -> dict:
         'max_lag_sources': args.maxlag_source,
         'min_lag_sources': args.minlag_source,
         'max_lag_target': args.maxlag_target,
-        'z-normalization': args.z_normalization,
+        'z_normalization': args.z_normalization,
     }
 
     return settings
