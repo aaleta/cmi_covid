@@ -31,9 +31,6 @@ def build_settings(args) -> dict:
         settings['data'] = {'name': 'data', 'wave': args.wave}
         settings['results_filename'] = f'results/results_wave{args.wave}_'
 
-    print(args)
-    print(settings['data'])
-
     settings['results_filename'] += f'_{settings["cmi_estimator"]}' \
                                     f'_maxLag{settings["max_lag_sources"]}' \
                                     f'_minLag{settings["min_lag_sources"]}' \

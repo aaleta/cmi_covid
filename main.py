@@ -8,8 +8,8 @@ if __name__ == "__main__":
     settings = build_settings(args)
     data = load_data(settings)
 
-    a = run_cmi_process(settings, data)
-    write_results(args.wave, a)
+    analysis = run_cmi_process(settings, data)
+    write_results(analysis)
 
 
 
