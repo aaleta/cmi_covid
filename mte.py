@@ -17,7 +17,8 @@ def build_settings(args) -> dict:
         'cmi_estimator': args.estimator,
         'max_lag_sources': args.maxlag_source,
         'min_lag_sources': args.minlag_source,
-        'max_lag_target': args.maxlag_target
+        'max_lag_target': args.maxlag_target,
+        'z-normalization': args.z_normalization,
     }
 
     return settings
@@ -48,7 +49,8 @@ def write_results(wave: int, analysis: dict) -> None:
     settings = analysis['settings']
     filename = f'results/results_wave{wave}_{settings["cmi_estimator"]}' \
                f'_maxLag{settings["max_lag_sources"]}' \
-               f'_minLag{settings["min_lag_sources"]}.pkl'
+               f'_minLag{settings["min_lag_sources"]}' \
+               f'{"_normalized" if settings["z_normalization"] else ""}.pkl'
 
     with open(filename, 'wb') as f:
         pickle.dump(analysis, f)

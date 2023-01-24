@@ -36,10 +36,15 @@ def parse_args(args=sys.argv[1:]):
     )
     parser.add_argument(
         "-MT",
-        "--maxlag_target",
+        "--maxlag-target",
         default=10,
         type=int,
         help="maximum lag for the target"
+    )
+    parser.add_argument(
+        "-z",
+        "--z-normalization",
+        action=argparse.BooleanOptionalAction
     )
 
     return parser.parse_args(args)
