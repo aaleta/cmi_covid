@@ -6,12 +6,23 @@ def parse_args(args=sys.argv[1:]):
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
+        "-s",
+        "--simulation",
+        action=argparse.BooleanOptionalAction,
+        help="use SIR simulation input data"
+    )
+    parser.add_argument(
+        "--susceptibility",
+        default=1,
+        type=float,
+        help="susceptibility for teenagers in the SIR model"
+    )
+    parser.add_argument(
         "-w",
         "--wave",
         default=6,
         type=int,
         help="wave to study, should be between 1 and 6"
-
     )
     parser.add_argument(
         "-e",
@@ -44,8 +55,8 @@ def parse_args(args=sys.argv[1:]):
     parser.add_argument(
         "-z",
         "--z-normalization",
-        action=argparse.BooleanOptionalAction
+        action=argparse.BooleanOptionalAction,
+        help="flag to indicate if data should be z-normalized"
     )
-
     return parser.parse_args(args)
 

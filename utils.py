@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from scipy.stats import gamma
 
+from sir import read_sir_data, get_R0, sir_simulation
+
 
 def get_generation_time(variant: str, max_days=20) -> tuple[list[int], list[float]]:
     """Returns the generation time of the given variant.
@@ -55,3 +57,35 @@ def get_n_groups(data: np.ndarray) -> int:
     """
     return np.shape(data)[1]
 
+
+def load_data(settings: dict) -> np.ndarray:
+    """
+    Load the dataset described in args.
+
+        Parameters:
+            settings: dictionary with the settings of the analysis
+
+        Returns:
+            numpy array of size (time, n_age_groups) with the incidence
+    """
+
+    if settings['data']['name'] == 'sir':
+        contact_matrix, population = read_sir_data()
+        settings['data']['R0'] = get_R0(contact_matrix,
+                                        settings['data']['beta'],
+                                        1. / settings['data']['gamma_inverse'])
+
+        states, incidence = sir_simulation(contact_matrix, population,
+                                           settings['data']['beta'],
+                                           settings['data']['gamma_inverse'],
+                                           settings['data']['susceptibility'],
+                                           settings['data']['initial_infected_age'],
+                                           settings['data']['seed'],
+                                           settings['data']['timesteps']
+                                           )
+
+        return incidence.T
+
+    elif settings['data']['name'] == 'data':
+        data = load_wave(settings['data']['wave'])
+        return data

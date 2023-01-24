@@ -8,7 +8,8 @@ from utils import get_n_groups
 
 
 def build_settings(args) -> dict:
-    """Buils the settings dictionary
+    """
+    Builds the settings dictionary
 
         Parameters:
             args: argsparser object containing all the necessary values
@@ -21,11 +22,29 @@ def build_settings(args) -> dict:
         'z_normalization': args.z_normalization,
     }
 
+    if args.simulation:
+        settings['data'] = {'name': 'sir', 'beta': 0.035, 'gamma_inverse': 5,
+                            'susceptibility': args.susceptibility, 'initial_infected_age': 2,
+                            'seed': 0.01, 'timesteps': 100}
+        settings['results_filename'] = f'results/results_simulation_sus{args.susceptibility}'
+    else:
+        settings['data'] = {'name': 'data', 'wave': args.wave}
+        settings['results_filename'] = f'results/results_wave{args.wave}_'
+
+    print(args)
+    print(settings['data'])
+
+    settings['results_filename'] += f'_{settings["cmi_estimator"]}' \
+                                    f'_maxLag{settings["max_lag_sources"]}' \
+                                    f'_minLag{settings["min_lag_sources"]}' \
+                                    f'{"_normalized" if settings["z_normalization"] else ""}.pkl'
+
     return settings
 
 
 def analyze_single_target(settings: dict, data: Data, target_id: int):
-    """Analyze one single target so that it can be paralellized.
+    """
+    Analyze one single target so that it can be paralellized.
 
         Parameters:
             settings: dictionary containing the settings for the mte calculation
@@ -39,19 +58,14 @@ def analyze_single_target(settings: dict, data: Data, target_id: int):
     return results
 
 
-def write_results(wave: int, analysis: dict) -> None:
-    """Write the analysis dict into a pickle file.
+def write_results(analysis: dict) -> None:
+    """
+    Write the analysis dict into a pickle file.
 
         Parameters:
-            wave: wave analyzed
             analysis: analysis dictionary with all the results
     """
-    settings = analysis['settings']
-    filename = f'results/results_wave{wave}_{settings["cmi_estimator"]}' \
-               f'_maxLag{settings["max_lag_sources"]}' \
-               f'_minLag{settings["min_lag_sources"]}' \
-               f'{"_normalized" if settings["z_normalization"] else ""}.pkl'
-
+    filename = analysis['settings']['results_filename']
     with open(filename, 'wb') as f:
         pickle.dump(analysis, f)
 
