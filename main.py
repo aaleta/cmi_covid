@@ -6,7 +6,7 @@ from utils import load_wave
 if __name__ == "__main__":
     args = parse_args()
 
-    data = load_wave(args.wave, normalise=args.z_normalization)
+    data = load_wave(args.wave)
     settings = build_settings(args)
 
     a = run_cmi_process(settings, data)

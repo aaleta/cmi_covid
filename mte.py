@@ -64,7 +64,7 @@ def run_cmi_process(settings: dict, data: np.ndarray, max_workers: int = 100):
                 'results': []}
 
     n_groups = get_n_groups(data)
-    data = Data(data, dim_order='sp')
+    data = Data(data, dim_order='sp', normalise=settings['z_normalization'])
 
     with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
         futures = {executor.submit(analyze_single_target,
