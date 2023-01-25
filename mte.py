@@ -28,8 +28,12 @@ def build_settings(args) -> dict:
                             'seed': 0.01, 'timesteps': 80}
         settings['results_filename'] = f'results/results_simulation_sus{args.susceptibility}'
     else:
-        settings['data'] = {'name': 'data', 'wave': args.wave}
-        settings['results_filename'] = f'results/results_wave{args.wave}_'
+        if args.generation_time:
+            settings['data'] = {'name': 'data_gt', 'wave': args.wave}
+            settings['results_filename'] = f'results/results_wave{args.wave}gt'
+        else:
+            settings['data'] = {'name': 'data', 'wave': args.wave}
+            settings['results_filename'] = f'results/results_wave{args.wave}'
 
     settings['results_filename'] += f'_{settings["cmi_estimator"]}' \
                                     f'_maxLag{settings["max_lag_sources"]}' \

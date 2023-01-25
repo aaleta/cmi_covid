@@ -29,19 +29,26 @@ def get_generation_time(variant: str, max_days=20) -> tuple[list[int], list[floa
     return x, y
 
 
-def load_wave(wave: int) -> np.ndarray:
+def load_wave(wave: int, aggregated=False) -> np.ndarray:
     """Returns a data frame with the number of cases for a specific wave.
 
         Parameters:
             wave: number between 1 and 6
+            aggregated: whether to use the raw data or the one aggregated by GT
 
         Returns:
             data: an array of dimension (timestep, age-groups) ordered by day
     """
-    data = pd.read_csv('data/cases_age_wave.csv')
-    data = data.loc[data['wave'] == f'wave_{wave}']\
-        .drop(['fecha', 'wave'], axis=1)\
-        .to_numpy(dtype=int)
+    if not aggregated:
+        data = pd.read_csv('data/cases_age_wave.csv')
+        data = data.loc[data['wave'] == f'wave_{wave}']\
+            .drop(['fecha', 'wave'], axis=1)\
+            .to_numpy(dtype=int)
+    else:
+        data = pd.read_csv('data/cases_age_wave_GT.csv')
+        data = data.loc[data['wave'] == f'wave_{wave}']\
+            .drop(['fecha', 'wave'], axis=1)\
+            .to_numpy(dtype=int)
 
     return data
 
@@ -84,8 +91,11 @@ def load_data(settings: dict) -> np.ndarray:
                                            settings['data']['timesteps']
                                            )
 
-        return incidence.T
+        data = incidence.T
 
     elif settings['data']['name'] == 'data':
         data = load_wave(settings['data']['wave'])
-        return data
+    elif settings['data']['name'] == 'data_gt':
+        data = load_wave(settings['data']['wave'], aggregated=True)
+
+    return data

@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_curves_matrix(data: np.ndarray, susceptibility=1) -> plt.Axes:
+def plot_curves_matrix(data: np.ndarray, susceptibility=1, title=None) -> plt.Axes:
     """
     Creates a graph with the curves for the new cases and the age-interaction matrix.
 
@@ -23,6 +23,8 @@ def plot_curves_matrix(data: np.ndarray, susceptibility=1) -> plt.Axes:
     susceptibility_vector[0:2] = susceptibility
     matrix = (matrix.T * susceptibility_vector).T
 
+    print(matrix.sum(axis=1))
+
     c = ax[1].matshow(matrix)
     for (i, j), z in np.ndenumerate(matrix):
         ax[1].text(j, i, '{:0.1f}'.format(z), ha='center', va='center')
@@ -38,10 +40,19 @@ def plot_curves_matrix(data: np.ndarray, susceptibility=1) -> plt.Axes:
     population = np.genfromtxt('data/age_groups_Italy.csv')
     data = data / population
 
+    #total = data.sum(axis=1)
+    #total = total / population.sum()
+    #data = data / population
+    #for i in range(data.shape[1]):
+    #    data[:, i] = data[:, i] - total
+
     lines = ax[0].plot(data)
     ax[0].set_xlabel("timestep")
     ax[0].set_ylabel('normalized incidence')
     ax[0].legend(lines, [age for age in range(len(lines))])
+
+    if title:
+        fig.suptitle(title)
 
     return fig, ax
 

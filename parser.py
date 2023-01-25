@@ -58,5 +58,11 @@ def parse_args(args=sys.argv[1:]):
         action=argparse.BooleanOptionalAction,
         help="flag to indicate if data should be z-normalized"
     )
+    parser.add_argument(
+        "-gt",
+        "--generation-time",
+        action=argparse.BooleanOptionalAction,
+        help="flag to indicate if the aggregated data by GT should be used"
+    )
     return parser.parse_args(args)
 
