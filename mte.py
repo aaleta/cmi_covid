@@ -25,7 +25,7 @@ def build_settings(args) -> dict:
     if args.simulation:
         settings['data'] = {'name': 'sir', 'beta': 0.035, 'gamma_inverse': 5,
                             'susceptibility': args.susceptibility, 'initial_infected_age': 2,
-                            'seed': 0.01, 'timesteps': 100}
+                            'seed': 0.01, 'timesteps': 80}
         settings['results_filename'] = f'results/results_simulation_sus{args.susceptibility}'
     else:
         settings['data'] = {'name': 'data', 'wave': args.wave}
