@@ -1,0 +1,17 @@
+Cython==0.29.33
+ecos==2.0.12
+h5py==3.8.0
+ipykernel==6.20.2
+JPype1==1.4.1
+matplotlib-inline==0.1.6
+matplotlib==3.10.0
+numpy==1.24.1
+pandas==1.5.3
+scipy==1.10.0
+networkx==3.0
+mpmath==1.2.1
+prettytable==3.6.0
+pyopencl==2022.3.1
+idtxl~=1.4
+setuptools~=65.5.1
+seaborn~=0.12.2
